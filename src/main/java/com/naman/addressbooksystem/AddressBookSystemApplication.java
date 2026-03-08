@@ -1,10 +1,7 @@
 package com.naman.addressbooksystem;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public class AddressBookSystemApplication {
 
-@SpringBootApplication
-public class AddressBookSystemApplication{
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
 		System.out.println("--------------------------------");
@@ -12,10 +9,11 @@ public class AddressBookSystemApplication{
 		AddressBook addressBook = new AddressBook();
 
         addressBook.addContact();
+        
+        addressBook.editContact();
 
         addressBook.displayContacts();
         
-		//SpringApplication.run(AddressBookAppMain.class, args);
 	}
 
 }

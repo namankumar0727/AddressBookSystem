@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class AddressBook {
 
     ArrayList<ContactPerson> contactList = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
 
+  //method to add contact 
     public void addContact() {
-
-        Scanner scanner = new Scanner(System.in);
 
         ContactPerson person = new ContactPerson();
 
@@ -42,7 +42,45 @@ public class AddressBook {
 
         System.out.println("\nContact Added Successfully!");
     }
+    //UC-3: Edit Contact 
+    
+    public void editContact() {
 
+        System.out.println("Enter First Name of Contact to Edit:");
+        String name = scanner.nextLine();
+
+        for (ContactPerson person : contactList) {
+
+            if (person.firstName.equalsIgnoreCase(name)) {
+
+                System.out.println("Enter New Address:");
+                person.address = scanner.nextLine();
+
+                System.out.println("Enter New City:");
+                person.city = scanner.nextLine();
+
+                System.out.println("Enter New State:");
+                person.state = scanner.nextLine();
+
+                System.out.println("Enter New Zip:");
+                person.zip = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.println("Enter New Phone Number:");
+                person.phoneNumber = scanner.nextLine();
+
+                System.out.println("Enter New Email:");
+                person.email = scanner.nextLine();
+
+                System.out.println("Contact Updated Successfully!");
+                return;
+            }
+        }
+
+        System.out.println("Contact Not Found!");
+    }
+    
+    //Method which display contacts 
     public void displayContacts() {
 
         for (ContactPerson person : contactList) {
