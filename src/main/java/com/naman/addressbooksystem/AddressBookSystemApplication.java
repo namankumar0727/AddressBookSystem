@@ -14,11 +14,7 @@ public class AddressBookSystemApplication {
             System.out.println("\n1 Add AddressBook");
             System.out.println("2 Display AddressBooks");
             System.out.println("3 Use AddressBook");
-            System.out.println("4 View Persons by City");
-            System.out.println("5 View Persons by State");
-            System.out.println("6 Count Persons by City");
-            System.out.println("7 Count Persons by State");
-            System.out.println("8 Exit");
+            System.out.println("4 Exit");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -34,6 +30,7 @@ public class AddressBookSystemApplication {
                     break;
 
                 case 2:
+
                     system.displayAddressBooks();
                     break;
 
@@ -49,38 +46,10 @@ public class AddressBookSystemApplication {
                         break;
                     }
 
-                    manageContacts(book, system, sc);
+                    manageContacts(book, sc);
                     break;
 
                 case 4:
-
-                    System.out.println("Enter City:");
-                    String city = sc.nextLine();
-                    system.viewPersonsByCity(city);
-                    break;
-
-                case 5:
-
-                    System.out.println("Enter State:");
-                    String state = sc.nextLine();
-                    system.viewPersonsByState(state);
-                    break;
-                case 6:
-
-                    System.out.println("Enter City:");
-                    String cityCount = sc.nextLine();
-
-                    system.countByCity(cityCount);
-                    break;
-                case 7:
-
-                    System.out.println("Enter State:");
-                    String stateCount = sc.nextLine();
-
-                    system.countByState(stateCount);
-                    break;
-
-                case 8:
                     System.out.println("Exiting...");
                     return;
 
@@ -90,8 +59,7 @@ public class AddressBookSystemApplication {
         }
     }
 
-
-    public static void manageContacts(AddressBook book, AddressBookSystem system, Scanner sc) {
+    public static void manageContacts(AddressBook book, Scanner sc) {
 
         while(true) {
 
@@ -100,10 +68,9 @@ public class AddressBookSystemApplication {
             System.out.println("3 Edit Contact");
             System.out.println("4 Delete Contact");
             System.out.println("5 Sort Contacts by Name");
-            System.out.println("6 Sort Contacts by City");
-            System.out.println("7 Sort Contacts by State");
-            System.out.println("8 Sort Contacts by Zip");
-            System.out.println("9 Back");
+            System.out.println("6 Write Contacts to File");
+            System.out.println("7 Read Contacts from File");
+            System.out.println("8 Back");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -141,10 +108,6 @@ public class AddressBookSystemApplication {
                             new ContactPerson(first,last,address,city,state,zip,phone,email);
 
                     book.addContact(contact);
-
-                    // NEW: Add to dictionary
-                    system.addPersonToDictionary(contact);
-
                     break;
 
                 case 2:
@@ -172,26 +135,20 @@ public class AddressBookSystemApplication {
 
                     book.deleteContact(delFirst, delLast);
                     break;
-                    
-                case 5:
 
+                case 5:
                     book.sortContactsByName();
                     break;
-                    
+
                 case 6:
-                    book.sortContactsByCity();
+                    AddressBookFileIO.writeContactsToFile(book.getContacts(), "contacts.txt");
                     break;
 
                 case 7:
-                    book.sortContactsByState();
+                    AddressBookFileIO.readContactsFromFile("contacts.txt");
                     break;
 
                 case 8:
-                    book.sortContactsByZip();
-                    break;
-
-
-                case 9:
                     return;
 
                 default:

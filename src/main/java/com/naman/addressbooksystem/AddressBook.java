@@ -1,7 +1,8 @@
 package com.naman.addressbooksystem;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -133,6 +134,9 @@ public class AddressBook {
                 .sorted(Comparator.comparing(ContactPerson::getCity,
                         String.CASE_INSENSITIVE_ORDER))
                 .forEach(System.out::println);
+    }
+    public List<ContactPerson> getContacts() {
+        return contactList;
     }
  // Sort contacts by State
     public void sortContactsByState() {
