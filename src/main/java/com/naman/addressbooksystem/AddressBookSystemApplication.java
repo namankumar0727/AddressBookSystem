@@ -11,6 +11,19 @@ public class AddressBookSystemApplication {
 	
 		System.out.println("Welcome to Address Book Program");
 		
+		AddressBook addressBook = new AddressBook();
+
+        ContactPerson person = addressBook.createContact();
+
+        System.out.println("\nContact Created Successfully!");
+
+        System.out.println(person.firstName + " " + person.lastName);
+        System.out.println(person.address);
+        System.out.println(person.city + ", " + person.state);
+        System.out.println("Zip: " + person.zip);
+        System.out.println("Phone: " + person.phoneNumber);
+        System.out.println("Email: " + person.email);
+		
 	}
 
 }
