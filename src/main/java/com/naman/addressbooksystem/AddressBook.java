@@ -1,5 +1,6 @@
 package com.naman.addressbooksystem;
-
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -118,6 +119,44 @@ public class AddressBook {
         contactList.stream()
                 .sorted((c1, c2) ->
                         c1.getFirstName().compareToIgnoreCase(c2.getFirstName()))
+                .forEach(System.out::println);
+    }
+ // Sort contacts by City
+    public void sortContactsByCity() {
+
+        if(contactList.isEmpty()) {
+            System.out.println("No contacts available");
+            return;
+        }
+
+        contactList.stream()
+                .sorted(Comparator.comparing(ContactPerson::getCity,
+                        String.CASE_INSENSITIVE_ORDER))
+                .forEach(System.out::println);
+    }
+ // Sort contacts by State
+    public void sortContactsByState() {
+
+        if(contactList.isEmpty()) {
+            System.out.println("No contacts available");
+            return;
+        }
+
+        contactList.stream()
+                .sorted(Comparator.comparing(ContactPerson::getState,
+                        String.CASE_INSENSITIVE_ORDER))
+                .forEach(System.out::println);
+    }
+ // Sort contacts by Zip
+    public void sortContactsByZip() {
+
+        if(contactList.isEmpty()) {
+            System.out.println("No contacts available");
+            return;
+        }
+
+        contactList.stream()
+                .sorted(Comparator.comparing(ContactPerson::getZip))
                 .forEach(System.out::println);
     }
 }

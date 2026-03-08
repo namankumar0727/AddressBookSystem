@@ -100,7 +100,10 @@ public class AddressBookSystemApplication {
             System.out.println("3 Edit Contact");
             System.out.println("4 Delete Contact");
             System.out.println("5 Sort Contacts by Name");
-            System.out.println("6 Back");
+            System.out.println("6 Sort Contacts by City");
+            System.out.println("7 Sort Contacts by State");
+            System.out.println("8 Sort Contacts by Zip");
+            System.out.println("9 Back");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -174,9 +177,21 @@ public class AddressBookSystemApplication {
 
                     book.sortContactsByName();
                     break;
-
-
+                    
                 case 6:
+                    book.sortContactsByCity();
+                    break;
+
+                case 7:
+                    book.sortContactsByState();
+                    break;
+
+                case 8:
+                    book.sortContactsByZip();
+                    break;
+
+
+                case 9:
                     return;
 
                 default:
