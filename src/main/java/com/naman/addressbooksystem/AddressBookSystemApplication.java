@@ -14,7 +14,9 @@ public class AddressBookSystemApplication {
             System.out.println("\n1 Add AddressBook");
             System.out.println("2 Display AddressBooks");
             System.out.println("3 Use AddressBook");
-            System.out.println("4 Exit");
+            System.out.println("4 View Persons by City");
+            System.out.println("5 View Persons by State");
+            System.out.println("6 Exit");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -26,12 +28,10 @@ public class AddressBookSystemApplication {
 
                     System.out.println("Enter AddressBook Name:");
                     String name = sc.nextLine();
-
                     system.addAddressBook(name);
                     break;
 
                 case 2:
-
                     system.displayAddressBooks();
                     break;
 
@@ -47,11 +47,24 @@ public class AddressBookSystemApplication {
                         break;
                     }
 
-                    manageContacts(book, sc);
+                    manageContacts(book, system, sc);
                     break;
 
                 case 4:
 
+                    System.out.println("Enter City:");
+                    String city = sc.nextLine();
+                    system.viewPersonsByCity(city);
+                    break;
+
+                case 5:
+
+                    System.out.println("Enter State:");
+                    String state = sc.nextLine();
+                    system.viewPersonsByState(state);
+                    break;
+
+                case 6:
                     System.out.println("Exiting...");
                     return;
 
@@ -61,7 +74,8 @@ public class AddressBookSystemApplication {
         }
     }
 
-    public static void manageContacts(AddressBook book, Scanner sc) {
+
+    public static void manageContacts(AddressBook book, AddressBookSystem system, Scanner sc) {
 
         while(true) {
 
@@ -69,9 +83,7 @@ public class AddressBookSystemApplication {
             System.out.println("2 Display Contacts");
             System.out.println("3 Edit Contact");
             System.out.println("4 Delete Contact");
-            System.out.println("5 Search by City");
-            System.out.println("6 Search by State");
-            System.out.println("7 Back");
+            System.out.println("5 Back");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -105,9 +117,14 @@ public class AddressBookSystemApplication {
                     System.out.println("Enter Email:");
                     String email = sc.nextLine();
 
-                    ContactPerson contact = new ContactPerson(first,last,address,city,state,zip,phone,email);
+                    ContactPerson contact =
+                            new ContactPerson(first,last,address,city,state,zip,phone,email);
 
                     book.addContact(contact);
+
+                    // NEW: Add to dictionary
+                    system.addPersonToDictionary(contact);
+
                     break;
 
                 case 2:
@@ -137,22 +154,6 @@ public class AddressBookSystemApplication {
                     break;
 
                 case 5:
-
-                    System.out.println("Enter City:");
-                    String searchCity = sc.nextLine();
-
-                    book.searchByCity(searchCity);
-                    break;
-
-                case 6:
-
-                    System.out.println("Enter State:");
-                    String searchState = sc.nextLine();
-
-                    book.searchByState(searchState);
-                    break;
-
-                case 7:
                     return;
 
                 default:
