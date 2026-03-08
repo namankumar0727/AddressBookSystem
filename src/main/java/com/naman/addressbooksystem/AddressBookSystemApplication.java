@@ -73,7 +73,11 @@ public class AddressBookSystemApplication {
             System.out.println("5 Sort Contacts by Name");
             System.out.println("6 Write Contacts to CSV");
             System.out.println("7 Read Contacts from CSV");
-            System.out.println("8 Back");
+            System.out.println("6 Write Contacts to CSV");
+            System.out.println("7 Read Contacts from CSV");
+            System.out.println("8 Write Contacts to JSON");
+            System.out.println("9 Read Contacts from JSON");
+            System.out.println("10 Back");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -164,8 +168,20 @@ public class AddressBookSystemApplication {
 
                     break;
 
-
                 case 8:
+
+                    AddressBookJsonService.writeContactsToJson(
+                            book.getContacts(), "contacts.json");
+
+                    break;
+
+                case 9:
+
+                    AddressBookJsonService.readContactsFromJson("contacts.json");
+
+                    break;
+
+                case 10:
                     return;
 
                 default:
