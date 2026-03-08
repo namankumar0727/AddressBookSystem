@@ -8,25 +8,29 @@ public class AddressBookSystem {
 
     public void addAddressBook(String name) {
 
-        AddressBook addressBook = new AddressBook();
-        addressBookMap.put(name, addressBook);
+        if(addressBookMap.containsKey(name)) {
+            System.out.println("AddressBook already exists");
+            return;
+        }
 
-        System.out.println("AddressBook Added Successfully");
+        addressBookMap.put(name, new AddressBook());
+
+        System.out.println("AddressBook added successfully");
     }
 
     public AddressBook getAddressBook(String name) {
+
         return addressBookMap.get(name);
     }
 
     public void displayAddressBooks() {
 
         if(addressBookMap.isEmpty()) {
-            System.out.println("No AddressBooks Available");
+            System.out.println("No AddressBooks available");
             return;
         }
 
-        for(String name : addressBookMap.keySet()) {
-            System.out.println("AddressBook Name: " + name);
-        }
+        addressBookMap.forEach((name, book) ->
+                System.out.println("AddressBook: " + name));
     }
 }

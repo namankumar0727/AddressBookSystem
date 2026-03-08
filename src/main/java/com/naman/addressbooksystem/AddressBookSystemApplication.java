@@ -11,16 +11,12 @@ public class AddressBookSystemApplication {
 
         while(true) {
 
-            System.out.println("\n1. Add AddressBook");
-            System.out.println("2. Display AddressBooks");
-            System.out.println("3. Add Contact");
-            System.out.println("4. Display Contacts");
-            System.out.println("5. Edit Contact");
-            System.out.println("6. Delete Contact");
-            System.out.println("7. Exit");
+            System.out.println("\n1 Add AddressBook");
+            System.out.println("2 Display AddressBooks");
+            System.out.println("3 Use AddressBook");
+            System.out.println("4 Exit");
 
             System.out.print("Enter choice: ");
-
             int choice = sc.nextInt();
             sc.nextLine();
 
@@ -30,6 +26,7 @@ public class AddressBookSystemApplication {
 
                     System.out.println("Enter AddressBook Name:");
                     String name = sc.nextLine();
+
                     system.addAddressBook(name);
                     break;
 
@@ -41,20 +38,54 @@ public class AddressBookSystemApplication {
                 case 3:
 
                     System.out.println("Enter AddressBook Name:");
-                    String abName = sc.nextLine();
+                    String bookName = sc.nextLine();
 
-                    AddressBook ab = system.getAddressBook(abName);
+                    AddressBook book = system.getAddressBook(bookName);
 
-                    if(ab == null) {
+                    if(book == null) {
                         System.out.println("AddressBook not found");
                         break;
                     }
 
+                    manageContacts(book, sc);
+                    break;
+
+                case 4:
+
+                    System.out.println("Exiting...");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    public static void manageContacts(AddressBook book, Scanner sc) {
+
+        while(true) {
+
+            System.out.println("\n1 Add Contact");
+            System.out.println("2 Display Contacts");
+            System.out.println("3 Edit Contact");
+            System.out.println("4 Delete Contact");
+            System.out.println("5 Search by City");
+            System.out.println("6 Search by State");
+            System.out.println("7 Back");
+
+            System.out.print("Enter choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice) {
+
+                case 1:
+
                     System.out.println("Enter First Name:");
-                    String firstName = sc.nextLine();
+                    String first = sc.nextLine();
 
                     System.out.println("Enter Last Name:");
-                    String lastName = sc.nextLine();
+                    String last = sc.nextLine();
 
                     System.out.println("Enter Address:");
                     String address = sc.nextLine();
@@ -74,74 +105,57 @@ public class AddressBookSystemApplication {
                     System.out.println("Enter Email:");
                     String email = sc.nextLine();
 
-                    ContactPerson contact = new ContactPerson(
-                            firstName, lastName, address,
-                            city, state, zip, phone, email
-                    );
+                    ContactPerson contact = new ContactPerson(first,last,address,city,state,zip,phone,email);
 
-                    ab.addContact(contact);
+                    book.addContact(contact);
+                    break;
 
+                case 2:
+                    book.displayContacts();
+                    break;
+
+                case 3:
+
+                    System.out.println("Enter First Name:");
+                    String editFirst = sc.nextLine();
+
+                    System.out.println("Enter Last Name:");
+                    String editLast = sc.nextLine();
+
+                    book.editContact(editFirst, editLast, sc);
                     break;
 
                 case 4:
 
-                    System.out.println("Enter AddressBook Name:");
-                    String displayName = sc.nextLine();
+                    System.out.println("Enter First Name:");
+                    String delFirst = sc.nextLine();
 
-                    AddressBook displayBook = system.getAddressBook(displayName);
+                    System.out.println("Enter Last Name:");
+                    String delLast = sc.nextLine();
 
-                    if(displayBook != null)
-                        displayBook.displayContacts();
-                    else
-                        System.out.println("AddressBook not found");
-
+                    book.deleteContact(delFirst, delLast);
                     break;
 
                 case 5:
 
-                    System.out.println("Enter AddressBook Name:");
-                    String editBookName = sc.nextLine();
+                    System.out.println("Enter City:");
+                    String searchCity = sc.nextLine();
 
-                    AddressBook editBook = system.getAddressBook(editBookName);
-
-                    if(editBook == null) {
-                        System.out.println("AddressBook not found");
-                        break;
-                    }
-
-                    System.out.println("Enter First Name to Edit:");
-                    String editName = sc.nextLine();
-
-                    editBook.editContact(editName, sc);
-
+                    book.searchByCity(searchCity);
                     break;
 
                 case 6:
 
-                    System.out.println("Enter AddressBook Name:");
-                    String deleteBookName = sc.nextLine();
+                    System.out.println("Enter State:");
+                    String searchState = sc.nextLine();
 
-                    AddressBook deleteBook = system.getAddressBook(deleteBookName);
-
-                    if(deleteBook == null) {
-                        System.out.println("AddressBook not found");
-                        break;
-                    }
-
-                    System.out.println("Enter First Name to Delete:");
-                    String deleteName = sc.nextLine();
-
-                    deleteBook.deleteContact(deleteName);
-
+                    book.searchByState(searchState);
                     break;
 
                 case 7:
-
-                    System.out.println("Exiting...");
                     return;
 
                 default:
-
                     System.out.println("Invalid choice");
             }
         }

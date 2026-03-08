@@ -27,37 +27,17 @@ public class ContactPerson {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getCity() { return city; }
+    public String getState() { return state; }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setAddress(String address) { this.address = address; }
+    public void setCity(String city) { this.city = city; }
+    public void setState(String state) { this.state = state; }
+    public void setZip(String zip) { this.zip = zip; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setEmail(String email) { this.email = email; }
 
     public void displayContact() {
 
@@ -71,7 +51,6 @@ public class ContactPerson {
         System.out.println("Email: " + email);
     }
 
-    // Override equals method
     @Override
     public boolean equals(Object obj) {
 
@@ -86,7 +65,6 @@ public class ContactPerson {
                lastName.equalsIgnoreCase(person.lastName);
     }
 
-    // Override hashCode method
     @Override
     public int hashCode() {
         return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
