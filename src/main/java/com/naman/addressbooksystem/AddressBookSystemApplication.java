@@ -6,39 +6,50 @@ public class AddressBookSystemApplication {
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to Address Book Program");
-        System.out.println("--------------------------------");
+        Scanner sc = new Scanner(System.in);
 
-        AddressBook addressBook = new AddressBook();
-        Scanner scanner = new Scanner(System.in);
+        AddressBookSystem system = new AddressBookSystem();
 
-        while (true) {
+        while(true) {
 
-            System.out.println("\nChoose");
-            System.out.println("1. Add Contact");
-            System.out.println("2. Display Contacts");
+            System.out.println("\n1. Add AddressBook");
+            System.out.println("2. Display AddressBooks");
             System.out.println("3. Exit");
 
-            System.out.println("Enter your choice:");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            System.out.print("Enter choice: ");
 
-            switch (choice) {
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice) {
 
                 case 1:
-                    addressBook.addContact();
+
+                    System.out.println("Enter AddressBook Name:");
+
+                    String name = sc.nextLine();
+
+                    AddressBook addressBook = new AddressBook();
+
+                    system.addAddressBook(name, addressBook);
+
                     break;
 
                 case 2:
-                    addressBook.displayContacts();
+
+                    system.displayAddressBooks();
+
                     break;
 
                 case 3:
-                    System.out.println("Exiting Address Book...");
+
+                    System.out.println("Exiting...");
+
                     return;
 
                 default:
-                    System.out.println("Invalid Choice");
+
+                    System.out.println("Invalid choice");
             }
         }
     }
