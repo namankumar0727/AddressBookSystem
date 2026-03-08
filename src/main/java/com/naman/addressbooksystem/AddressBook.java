@@ -8,7 +8,20 @@ public class AddressBook {
     ArrayList<ContactPerson> contactList = new ArrayList<>();
 
     public void addContact(ContactPerson contact) {
+
+        boolean duplicate = contactList.stream()
+                .anyMatch(person -> person.equals(contact));
+
+        if(duplicate) {
+
+            System.out.println("Duplicate contact found. Cannot add.");
+
+            return;
+        }
+
         contactList.add(contact);
+
+        System.out.println("Contact added successfully");
     }
 
     public void displayContacts() {
@@ -19,7 +32,9 @@ public class AddressBook {
         }
 
         for(ContactPerson contact : contactList) {
+
             contact.displayContact();
+
             System.out.println("-------------------");
         }
     }
@@ -51,6 +66,7 @@ public class AddressBook {
                 contact.email = sc.nextLine();
 
                 System.out.println("Contact updated successfully");
+
                 return;
             }
         }
@@ -60,15 +76,8 @@ public class AddressBook {
 
     public void deleteContact(String name) {
 
-        for(ContactPerson contact : contactList) {
+        contactList.removeIf(contact -> contact.firstName.equals(name));
 
-            if(contact.firstName.equals(name)) {
-                contactList.remove(contact);
-                System.out.println("Contact deleted successfully");
-                return;
-            }
-        }
-
-        System.out.println("Contact not found");
+        System.out.println("Contact deleted successfully");
     }
 }

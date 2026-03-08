@@ -1,5 +1,7 @@
 package com.naman.addressbooksystem;
 
+import java.util.Objects;
+
 public class ContactPerson {
 
     String firstName;
@@ -23,6 +25,25 @@ public class ContactPerson {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    // Override equals for duplicate check
+    @Override
+    public boolean equals(Object obj) {
+
+        if(this == obj) return true;
+
+        if(obj == null || getClass() != obj.getClass()) return false;
+
+        ContactPerson person = (ContactPerson) obj;
+
+        return firstName.equalsIgnoreCase(person.firstName) &&
+               lastName.equalsIgnoreCase(person.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
     }
 
     public void displayContact() {
