@@ -46,6 +46,9 @@ public class ContactPerson {
     public String getZip() {
         return zip;
     }
+    public String getAddress() { return address; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public String getEmail() { return email; }
     
 
     public void setAddress(String address) { this.address = address; }
