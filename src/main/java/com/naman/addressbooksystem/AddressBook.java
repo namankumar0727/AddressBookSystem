@@ -1,10 +1,13 @@
 package com.naman.addressbooksystem;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
 
-    public ContactPerson createContact() {
+    ArrayList<ContactPerson> contactList = new ArrayList<>();
+
+    public void addContact() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -35,6 +38,15 @@ public class AddressBook {
         System.out.println("Enter Email:");
         person.email = scanner.nextLine();
 
-        return person;
+        contactList.add(person);
+
+        System.out.println("\nContact Added Successfully!");
+    }
+
+    public void displayContacts() {
+
+        for (ContactPerson person : contactList) {
+            person.displayContact();
+        }
     }
 }
