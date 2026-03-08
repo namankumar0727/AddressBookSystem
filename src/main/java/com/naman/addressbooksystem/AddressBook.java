@@ -108,4 +108,16 @@ public class AddressBook {
         if(!found)
             System.out.println("No contacts found in this state");
     }
+    public void sortContactsByName() {
+
+        if(contactList.isEmpty()) {
+            System.out.println("No contacts available");
+            return;
+        }
+
+        contactList.stream()
+                .sorted((c1, c2) ->
+                        c1.getFirstName().compareToIgnoreCase(c2.getFirstName()))
+                .forEach(System.out::println);
+    }
 }

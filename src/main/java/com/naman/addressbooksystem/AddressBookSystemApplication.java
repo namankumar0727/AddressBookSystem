@@ -99,7 +99,8 @@ public class AddressBookSystemApplication {
             System.out.println("2 Display Contacts");
             System.out.println("3 Edit Contact");
             System.out.println("4 Delete Contact");
-            System.out.println("5 Back");
+            System.out.println("5 Sort Contacts by Name");
+            System.out.println("6 Back");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -168,8 +169,14 @@ public class AddressBookSystemApplication {
 
                     book.deleteContact(delFirst, delLast);
                     break;
-
+                    
                 case 5:
+
+                    book.sortContactsByName();
+                    break;
+
+
+                case 6:
                     return;
 
                 default:
