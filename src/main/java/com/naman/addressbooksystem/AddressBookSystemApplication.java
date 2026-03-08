@@ -11,6 +11,8 @@ public class AddressBookSystemApplication {
         addressBook.addContact();
         
         addressBook.editContact();
+        
+        addressBook.deleteContact();
 
         addressBook.displayContacts();
         
