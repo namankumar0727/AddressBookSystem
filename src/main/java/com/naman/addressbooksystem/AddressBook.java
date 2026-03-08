@@ -8,7 +8,6 @@ public class AddressBook {
     ArrayList<ContactPerson> contactList = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
-  //method to add contact 
     public void addContact() {
 
         ContactPerson person = new ContactPerson();
@@ -40,66 +39,15 @@ public class AddressBook {
 
         contactList.add(person);
 
-        System.out.println("\nContact Added Successfully!");
-    }
-    //UC-3: Edit Contact 
-    
-    public void editContact() {
-
-        System.out.println("Enter First Name of Contact to Edit:");
-        String name = scanner.nextLine();
-
-        for (ContactPerson person : contactList) {
-
-            if (person.firstName.equalsIgnoreCase(name)) {
-
-                System.out.println("Enter New Address:");
-                person.address = scanner.nextLine();
-
-                System.out.println("Enter New City:");
-                person.city = scanner.nextLine();
-
-                System.out.println("Enter New State:");
-                person.state = scanner.nextLine();
-
-                System.out.println("Enter New Zip:");
-                person.zip = scanner.nextInt();
-                scanner.nextLine();
-
-                System.out.println("Enter New Phone Number:");
-                person.phoneNumber = scanner.nextLine();
-
-                System.out.println("Enter New Email:");
-                person.email = scanner.nextLine();
-
-                System.out.println("Contact Updated Successfully!");
-                return;
-            }
-        }
-
-        System.out.println("Contact Not Found!");
-    }
-    //Method to delete contact 
-    public void deleteContact() {
-
-        System.out.println("Enter First Name of Contact to Delete:");
-        String name = scanner.nextLine();
-
-        for (ContactPerson person : contactList) {
-
-            if (person.firstName.equalsIgnoreCase(name)) {
-                contactList.remove(person);
-                System.out.println("Contact Deleted Successfully!");
-                return;
-            }
-        }
-
-        System.out.println("Contact Not Found!");
+        System.out.println("Contact Added Successfully!");
     }
 
-    
-    //Method which display contacts 
     public void displayContacts() {
+
+        if (contactList.isEmpty()) {
+            System.out.println("No contacts found.");
+            return;
+        }
 
         for (ContactPerson person : contactList) {
             person.displayContact();
