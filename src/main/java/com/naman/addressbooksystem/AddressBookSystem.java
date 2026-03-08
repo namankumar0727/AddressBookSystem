@@ -84,4 +84,32 @@ public class AddressBookSystem {
 
         persons.forEach(ContactPerson::displayContact);
     }
+    public void countByCity(String city) {
+
+        long count = cityDictionary
+                .getOrDefault(city, new ArrayList<>())
+                .stream()
+                .count();
+
+        if(count == 0) {
+            System.out.println("No persons found in city: " + city);
+            return;
+        }
+
+        System.out.println("Number of persons in " + city + ": " + count);
+    }
+    public void countByState(String state) {
+
+        long count = stateDictionary
+                .getOrDefault(state, new ArrayList<>())
+                .stream()
+                .count();
+
+        if(count == 0) {
+            System.out.println("No persons found in state: " + state);
+            return;
+        }
+
+        System.out.println("Number of persons in " + state + ": " + count);
+    }
 }

@@ -16,7 +16,9 @@ public class AddressBookSystemApplication {
             System.out.println("3 Use AddressBook");
             System.out.println("4 View Persons by City");
             System.out.println("5 View Persons by State");
-            System.out.println("6 Exit");
+            System.out.println("6 Count Persons by City");
+            System.out.println("7 Count Persons by State");
+            System.out.println("8 Exit");
 
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
@@ -63,8 +65,22 @@ public class AddressBookSystemApplication {
                     String state = sc.nextLine();
                     system.viewPersonsByState(state);
                     break;
-
                 case 6:
+
+                    System.out.println("Enter City:");
+                    String cityCount = sc.nextLine();
+
+                    system.countByCity(cityCount);
+                    break;
+                case 7:
+
+                    System.out.println("Enter State:");
+                    String stateCount = sc.nextLine();
+
+                    system.countByState(stateCount);
+                    break;
+
+                case 8:
                     System.out.println("Exiting...");
                     return;
 
