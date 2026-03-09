@@ -26,49 +26,12 @@ public class ContactPerson {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
-    @Override
-    public String toString() {
-
-        return "First Name: " + firstName +
-                ", Last Name: " + lastName +
-                ", Address: " + address +
-                ", City: " + city +
-                ", State: " + state +
-                ", Zip: " + zip +
-                ", Phone: " + phoneNumber +
-                ", Email: " + email;
-    }
 
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public String getCity() { return city; }
-    public String getState() { return state; }
-    public String getZip() {
-        return zip;
-    }
-    public String getAddress() { return address; }
-    public String getPhoneNumber() { return phoneNumber; }
-    public String getEmail() { return email; }
-    
 
-    public void setAddress(String address) { this.address = address; }
     public void setCity(String city) { this.city = city; }
-    public void setState(String state) { this.state = state; }
-    public void setZip(String zip) { this.zip = zip; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    public void setEmail(String email) { this.email = email; }
-
-    public void displayContact() {
-
-        System.out.println("First Name: " + firstName);
-        System.out.println("Last Name: " + lastName);
-        System.out.println("Address: " + address);
-        System.out.println("City: " + city);
-        System.out.println("State: " + state);
-        System.out.println("Zip: " + zip);
-        System.out.println("Phone: " + phoneNumber);
-        System.out.println("Email: " + email);
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -81,11 +44,21 @@ public class ContactPerson {
         ContactPerson person = (ContactPerson) obj;
 
         return firstName.equalsIgnoreCase(person.firstName) &&
-               lastName.equalsIgnoreCase(person.lastName);
+               lastName.equalsIgnoreCase(person.lastName) &&
+               city.equalsIgnoreCase(person.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
+        return Objects.hash(firstName, lastName, city);
+    }
+
+    @Override
+    public String toString() {
+
+        return "First Name: " + firstName +
+                ", Last Name: " + lastName +
+                ", City: " + city +
+                ", State: " + state;
     }
 }

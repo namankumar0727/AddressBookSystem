@@ -3,55 +3,22 @@ package com.naman.addressbooksystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 public class AddressBookServiceTest {
 
-    AddressBookService service = new AddressBookService();
-
-    // Test Case 1: Database should return list (even if empty)
     @Test
-    public void givenDatabase_WhenRetrieved_ShouldReturnList() {
+    public void givenContact_WhenUpdated_ShouldSyncWithDB() {
 
-        List<ContactPerson> contacts = service.retrieveContactsFromDB();
+        AddressBookService service = new AddressBookService();
 
-        Assertions.assertNotNull(contacts);
-    }
+        String name = "Naman";
+        String newCity = "Delhi";
 
-    // Test Case 2: Database empty scenario
-    @Test
-    public void givenEmptyDatabase_WhenRetrieved_ShouldReturnEmptyList() {
+        boolean updated = service.updateContactCity(name, newCity);
 
-        List<ContactPerson> contacts = service.retrieveContactsFromDB();
+        Assertions.assertTrue(updated);
 
-        Assertions.assertEquals(0, contacts.size());
-    }
+        ContactPerson contactFromDB = service.getContactByName(name);
 
-    // Test Case 3: Insert test data then verify retrieval
-    @Test
-    public void givenDatabaseWithContacts_WhenRetrieved_ShouldReturnContacts() {
-
-        List<ContactPerson> contacts = service.retrieveContactsFromDB();
-
-        if(contacts.size() > 0) {
-            Assertions.assertTrue(contacts.size() >= 1);
-        }
-    }
-
-    // Test Case 4: Verify object mapping
-    @Test
-    public void givenDatabase_WhenRetrieved_ShouldMapContactFields() {
-
-        List<ContactPerson> contacts = service.retrieveContactsFromDB();
-
-        if(!contacts.isEmpty()) {
-
-            ContactPerson contact = contacts.get(0);
-
-            Assertions.assertNotNull(contact.getFirstName());
-            Assertions.assertNotNull(contact.getLastName());
-            Assertions.assertNotNull(contact.getCity());
-            Assertions.assertNotNull(contact.getState());
-        }
+        Assertions.assertEquals(newCity, contactFromDB.getCity());
     }
 }
