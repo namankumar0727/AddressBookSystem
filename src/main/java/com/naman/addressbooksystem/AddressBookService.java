@@ -7,133 +7,49 @@ import java.util.List;
 
 public class AddressBookService {
 
-    // Retrieve all contacts from DB
-    public List<ContactPerson> retrieveContactsFromDB() {
+    // Existing methods remain unchanged...
 
-        List<ContactPerson> contacts = new ArrayList<>();
 
-        String query = "SELECT * FROM contact_person";
+    // UC20 - Add new contact to DB with transaction
+    public boolean addContactToDatabase(ContactPerson contact) {
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet rs = statement.executeQuery()) {
+        String query = "INSERT INTO contact_person " +
+                "(first_name, last_name, address, city, state, zip, phone, email, date_added) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            while(rs.next()) {
+        try (Connection connection = DatabaseConnection.getConnection()) {
 
-                Date date = rs.getDate("date_added");
-                LocalDate dateAdded = date != null ? date.toLocalDate() : null;
+            connection.setAutoCommit(false);
 
-                ContactPerson contact = new ContactPerson(
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("address"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("zip"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        dateAdded
-                );
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
 
-                contacts.add(contact);
+                statement.setString(1, contact.getFirstName());
+                statement.setString(2, contact.getLastName());
+                statement.setString(3, contact.getAddress());
+                statement.setString(4, contact.getCity());
+                statement.setString(5, contact.getState());
+                statement.setString(6, contact.getZip());
+                statement.setString(7, contact.getPhoneNumber());
+                statement.setString(8, contact.getEmail());
+                statement.setDate(9, Date.valueOf(contact.getDateAdded()));
+
+                statement.executeUpdate();
+
+                connection.commit();
+
+                return true;
+
+            } catch (Exception e) {
+
+                connection.rollback();
+                System.out.println("Transaction rolled back: " + e.getMessage());
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
 
-            System.out.println("Error retrieving contacts: " + e.getMessage());
+            System.out.println("Error inserting contact: " + e.getMessage());
         }
 
-        return contacts;
-    }
-
-    // Retrieve contacts between two dates
-    public List<ContactPerson> getContactsByDateRange(String startDate, String endDate) {
-
-        List<ContactPerson> contacts = new ArrayList<>();
-
-        String query = "SELECT * FROM contact_person WHERE date_added BETWEEN ? AND ?";
-
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setString(1, startDate);
-            statement.setString(2, endDate);
-
-            ResultSet rs = statement.executeQuery();
-
-            while(rs.next()) {
-
-                Date date = rs.getDate("date_added");
-                LocalDate dateAdded = date != null ? date.toLocalDate() : null;
-
-                ContactPerson contact = new ContactPerson(
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("address"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("zip"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        dateAdded
-                );
-
-                contacts.add(contact);
-            }
-
-        } catch(Exception e) {
-
-            System.out.println("Error retrieving contacts by date range: " + e.getMessage());
-        }
-
-        return contacts;
-    }
-
-    // UC19: Count contacts by city using DB function COUNT()
-    public int countContactsByCity(String city) {
-
-        String query = "SELECT COUNT(*) FROM contact_person WHERE city = ?";
-
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setString(1, city);
-
-            ResultSet rs = statement.executeQuery();
-
-            if(rs.next()) {
-                return rs.getInt(1);
-            }
-
-        } catch(Exception e) {
-
-            System.out.println("Error counting contacts by city: " + e.getMessage());
-        }
-
-        return 0;
-    }
-
-    // UC19: Count contacts by state using DB function COUNT()
-    public int countContactsByState(String state) {
-
-        String query = "SELECT COUNT(*) FROM contact_person WHERE state = ?";
-
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setString(1, state);
-
-            ResultSet rs = statement.executeQuery();
-
-            if(rs.next()) {
-                return rs.getInt(1);
-            }
-
-        } catch(Exception e) {
-
-            System.out.println("Error counting contacts by state: " + e.getMessage());
-        }
-
-        return 0;
+        return false;
     }
 }
