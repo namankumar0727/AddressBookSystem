@@ -1,5 +1,6 @@
 package com.naman.addressbooksystem;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class AddressBookSystemApplication {
@@ -26,12 +27,10 @@ public class AddressBookSystemApplication {
 
                     System.out.println("Enter AddressBook Name:");
                     String name = sc.nextLine();
-
                     system.addAddressBook(name);
                     break;
 
                 case 2:
-
                     system.displayAddressBooks();
                     break;
 
@@ -51,20 +50,14 @@ public class AddressBookSystemApplication {
                     break;
 
                 case 4:
-
                     System.out.println("Exiting...");
                     return;
 
                 default:
                     System.out.println("Invalid choice");
             }
-            AddressBookService service = new AddressBookService();
-
-            service.retrieveContactsFromDB()
-                   .forEach(System.out::println);
         }
     }
-
 
     public static void manageContacts(AddressBook book, Scanner sc) {
 
@@ -75,8 +68,6 @@ public class AddressBookSystemApplication {
             System.out.println("3 Edit Contact");
             System.out.println("4 Delete Contact");
             System.out.println("5 Sort Contacts by Name");
-            System.out.println("6 Write Contacts to CSV");
-            System.out.println("7 Read Contacts from CSV");
             System.out.println("6 Write Contacts to CSV");
             System.out.println("7 Read Contacts from CSV");
             System.out.println("8 Write Contacts to JSON");
@@ -116,17 +107,14 @@ public class AddressBookSystemApplication {
                     String email = sc.nextLine();
 
                     ContactPerson contact =
-                            new ContactPerson(first,last,address,city,state,zip,phone,email);
+                            new ContactPerson(first,last,address,city,state,zip,phone,email, LocalDate.now());
 
                     book.addContact(contact);
                     break;
 
-
                 case 2:
-
                     book.displayContacts();
                     break;
-
 
                 case 3:
 
@@ -139,7 +127,6 @@ public class AddressBookSystemApplication {
                     book.editContact(editFirst, editLast, sc);
                     break;
 
-
                 case 4:
 
                     System.out.println("Enter First Name:");
@@ -151,44 +138,28 @@ public class AddressBookSystemApplication {
                     book.deleteContact(delFirst, delLast);
                     break;
 
-
                 case 5:
-
                     book.sortContactsByName();
                     break;
 
-
                 case 6:
-
-                    AddressBookCSVService.writeContactsToCSV(
-                            book.getContacts(), "contacts.csv");
-
+                    AddressBookCSVService.writeContactsToCSV(book.getContacts(), "contacts.csv");
                     break;
 
-
                 case 7:
-
                     AddressBookCSVService.readContactsFromCSV("contacts.csv");
-
                     break;
 
                 case 8:
-
-                    AddressBookJsonService.writeContactsToJson(
-                            book.getContacts(), "contacts.json");
-
+                    AddressBookJsonService.writeContactsToJson(book.getContacts(), "contacts.json");
                     break;
 
                 case 9:
-
                     AddressBookJsonService.readContactsFromJson("contacts.json");
-
                     break;
 
                 case 10:
                     return;
-                    
-                    
 
                 default:
                     System.out.println("Invalid choice");

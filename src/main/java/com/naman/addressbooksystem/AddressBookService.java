@@ -1,6 +1,7 @@
 package com.naman.addressbooksystem;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class AddressBookService {
                         rs.getString("state"),
                         rs.getString("zip"),
                         rs.getString("phone"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getDate("date_added").toLocalDate()
                 );
 
                 contacts.add(contact);
@@ -40,43 +42,24 @@ public class AddressBookService {
         return contacts;
     }
 
-    public boolean updateContactCity(String firstName, String newCity) {
 
-        String query = "UPDATE contact_person SET city=? WHERE first_name=?";
+    public List<ContactPerson> getContactsByDateRange(String startDate, String endDate) {
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query)) {
+        List<ContactPerson> contacts = new ArrayList<>();
 
-            statement.setString(1, newCity);
-            statement.setString(2, firstName);
-
-            int rowsUpdated = statement.executeUpdate();
-
-            return rowsUpdated > 0;
-
-        } catch(Exception e) {
-
-            System.out.println("Error updating contact: " + e.getMessage());
-        }
-
-        return false;
-    }
-
-
-    public ContactPerson getContactByName(String firstName) {
-
-        String query = "SELECT * FROM contact_person WHERE first_name=?";
+        String query = "SELECT * FROM contact_person WHERE date_added BETWEEN ? AND ?";
 
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setString(1, firstName);
+            statement.setString(1, startDate);
+            statement.setString(2, endDate);
 
             ResultSet rs = statement.executeQuery();
 
-            if(rs.next()) {
+            while(rs.next()) {
 
-                return new ContactPerson(
+                ContactPerson contact = new ContactPerson(
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("address"),
@@ -84,15 +67,18 @@ public class AddressBookService {
                         rs.getString("state"),
                         rs.getString("zip"),
                         rs.getString("phone"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getDate("date_added").toLocalDate()
                 );
+
+                contacts.add(contact);
             }
 
         } catch(Exception e) {
 
-            System.out.println("Error retrieving contact: " + e.getMessage());
+            System.out.println("Error retrieving contacts by date range: " + e.getMessage());
         }
 
-        return null;
+        return contacts;
     }
 }
