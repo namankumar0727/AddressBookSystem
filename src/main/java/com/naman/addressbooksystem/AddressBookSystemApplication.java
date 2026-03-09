@@ -58,6 +58,10 @@ public class AddressBookSystemApplication {
                 default:
                     System.out.println("Invalid choice");
             }
+            AddressBookService service = new AddressBookService();
+
+            service.retrieveContactsFromDB()
+                   .forEach(System.out::println);
         }
     }
 
@@ -183,6 +187,8 @@ public class AddressBookSystemApplication {
 
                 case 10:
                     return;
+                    
+                    
 
                 default:
                     System.out.println("Invalid choice");
